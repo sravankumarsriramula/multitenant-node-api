@@ -4,14 +4,14 @@ import http from "http";
 import app from "@/app";
 import dotenv from "dotenv";
 dotenv.config();
-// import connectDB from "./loaders/database"; // DB loader (optional)
+import connectDB from "./config/database"; // DB loader (optional)
 
 const PORT = Number(process.env.PORT) || 3000;
 
 const startServer = async () => {
     try {
         // Connect to DB before starting server
-        // await connectDB();
+        await connectDB();
         console.log("📦 Database connected");
 
         const server = http.createServer(app);

@@ -4,7 +4,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 
 // Import versioned routes
-import v1Routes from "@/api/v1/routes";
+import v1Routes from "@/routes";
 
 // Error middleware (you can create this file)
 // import errorMiddleware from "./middlewares/error.middleware";
