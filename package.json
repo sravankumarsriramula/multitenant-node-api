@@ -2,25 +2,26 @@
   "name": "multitenant-node-api",
   "version": "1.0.0",
   "type": "module",
-
   "scripts": {
     "dev": "nodemon --watch src --exec tsx src/server.ts",
     "start": "pm2 start ecosystem.config.cjs --env production",
     "pm2:stop": "pm2 stop all"
   },
-
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^9.0.0",
     "morgan": "^1.10.1"
   },
-
   "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.5",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/morgan": "^1.9.10",
     "@types/node": "^24.10.1",
     "nodemon": "^3.1.11",

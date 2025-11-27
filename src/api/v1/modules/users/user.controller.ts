@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import UserService from "./user.service";
+import bcrypt from "bcrypt";
 
 const userService = new UserService();
 
@@ -35,8 +36,9 @@ export default class UserController {
      */
     async createUser(req: Request, res: Response) {
         try {
-            const data = req.body;
-            const user = await userService.createUser(data);
+            const { name, email, password } = req.body;
+            const hash = await bcrypt.hash(password, 10);
+            const user = await userService.createUser({ name, email, password: hash });
 
             return res.status(201).json({
                 message: "User created successfully",
@@ -80,4 +82,12 @@ export default class UserController {
             return res.status(400).json({ error: error.message });
         }
     }
+
+    async loginUser(req: Request, res: Response) {
+        const { email, password } = req.body;
+
+        const token: any = await userService.login({ email, password });
+
+        return res.json({ message: "Logged in", token });
+    };
 }

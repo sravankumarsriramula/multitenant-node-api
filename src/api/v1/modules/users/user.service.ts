@@ -1,4 +1,8 @@
 import User from "./user.model";
+import bcrypt from "bcrypt";
+import { signToken } from "../../utils/jwt.js";
+
+
 
 export default class UserService {
 
@@ -30,5 +34,18 @@ export default class UserService {
         const user = await User.findByIdAndDelete(id);
         if (!user) throw new Error("User not found");
         return user;
+    }
+
+    async login(data: any) {
+        const { email, password } = data;
+
+        const user: any = await User.findOne({ email });
+        if (!user) throw new Error("User not found");
+
+        const match = await bcrypt.compare(password, user.password);
+        if (!match) throw new Error("Invalid credentials");
+
+        const token = signToken({ id: user._id });
+        return token;
     }
 }
